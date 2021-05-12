@@ -19,40 +19,47 @@ fun Application.module() {
         gzip {
             priority = 1.0
         }
+
         deflate {
             priority = 10.0
-            minimumSize(1024) // condition
+            minimumSize(1024)
         }
     }
 
     routing {
-        get("/") {
-            call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
+        get<AuthorizeRoute> { req ->
+            // TODO get the right client_id for this instance
+            // aka create it persist it in db if it doesn't exist, otherwise fetch it
+            call.respondRedirect(permanent = false) {
+                takeFrom(Url(req.instance))
+                encodedPath = "oauth/authorize"
+                with(parameters) {
+                    remove("instance")
+                    append("client_id", "TODO")
+                }
+            }
         }
 
-        get<MyLocation> {
-            call.respondText("Location: name=${it.name}, arg1=${it.arg1}, arg2=${it.arg2}")
-        }
-        // Register nested routes
-        get<Type.Edit> {
-            call.respondText("Inside $it")
-        }
-        get<Type.List> {
-            call.respondText("Inside $it")
+        post<TokenRoute> { req ->
+            // TODO proxy the request to the instance with our added client_id/client_secret and return its response
+            call.respondText("Token")
         }
     }
 }
 
-@Location("/location/{name}")
-class MyLocation(val name: String, val arg1: Int = 42, val arg2: String = "default")
+@Location("/oauth/authorize")
+class AuthorizeRoute(
+    val instance: String,
+    val scope: String,
+    val redirect_uri: String = "urn:ietf:wg:oauth:2.0:oob",
+    val response_type: String = "code"
+)
 
-@Location("/type/{name}")
-data class Type(val name: String) {
-
-    @Location("/edit")
-    data class Edit(val type: Type)
-
-    @Location("/list/{page}")
-    data class List(val type: Type, val page: Int)
-}
-
+@Location("/oauth/token")
+class TokenRoute(
+    val instance: String,
+    val code: String,
+    val scope: String,
+    val redirect_uri: String = "urn:ietf:wg:oauth:2.0:oob",
+    val grant_type: String = "authorization_code"
+)
