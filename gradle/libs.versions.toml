@@ -1,0 +1,12 @@
+[versions]
+ktor = "1.5.4"
+
+[libraries]
+mastodonk = "fr.outadoc.mastodonk:mastodonk-core-jvm:0.1-alpha13"
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.2.0"
+junit = "junit:junit:4.13"
+logback = "ch.qos.logback:logback-classic:1.2.1"
+ktor-cio = { module = "io.ktor:ktor-server-cio", version.ref = "ktor" }
+ktor-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktor-locations = { module = "io.ktor:ktor-locations", version.ref = "ktor" }
+ktor-tests = { module = "io.ktor:ktor-server-tests", version.ref = "ktor" }
