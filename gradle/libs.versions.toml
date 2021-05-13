@@ -1,7 +1,11 @@
 [versions]
+exposed = "0.31.1"
 ktor = "1.5.4"
 
 [libraries]
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
 mastodonk = "fr.outadoc.mastodonk:mastodonk-core-jvm:0.1-alpha14"
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.2.0"
 junit = "junit:junit:4.13"

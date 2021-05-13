@@ -21,9 +21,14 @@ dependencies {
     implementation(libs.mastodonk)
 
     implementation(libs.ktor.cio)
-    implementation(libs.logback)
     implementation(libs.ktor.core)
     implementation(libs.ktor.locations)
+    implementation(libs.logback)
+
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.jdbc)
+
     testImplementation(libs.ktor.tests)
 }
 

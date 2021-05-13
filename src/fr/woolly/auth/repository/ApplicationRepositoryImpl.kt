@@ -9,7 +9,7 @@ class ApplicationRepositoryImpl : ApplicationRepository {
     private val defaultApp = ApplicationCreate(
         clientName = "Woolly",
         website = "https://woolly.app",
-        scopes = "read,write,follow,push",
+        scopes = "read write follow push",
         redirectUris = listOf(
             "urn:ietf:wg:oauth:2.0:oob",
             "woolly://oauth/callback",
