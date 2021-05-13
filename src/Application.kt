@@ -4,7 +4,6 @@ package fr.woolly.auth
 
 import io.ktor.application.*
 import io.ktor.features.*
-import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -31,10 +30,10 @@ fun Application.module() {
             // TODO get the right client_id for this instance
             // aka create it persist it in db if it doesn't exist, otherwise fetch it
             call.respondRedirect(permanent = false) {
-                takeFrom(Url(req.instance))
+                host = req.domain
                 encodedPath = "oauth/authorize"
                 with(parameters) {
-                    remove("instance")
+                    remove("domain")
                     append("client_id", "TODO")
                 }
             }
@@ -49,17 +48,22 @@ fun Application.module() {
 
 @Location("/oauth/authorize")
 class AuthorizeRoute(
-    val instance: String,
-    val scope: String,
+    val domain: String,
+    val scope: String? = null,
     val redirect_uri: String = "urn:ietf:wg:oauth:2.0:oob",
     val response_type: String = "code"
 )
 
 @Location("/oauth/token")
 class TokenRoute(
-    val instance: String,
+    val domain: String,
     val code: String,
     val scope: String,
     val redirect_uri: String = "urn:ietf:wg:oauth:2.0:oob",
     val grant_type: String = "authorization_code"
+)
+
+val application = fr.outadoc.mastodonk.api.entity.Application(
+    name = "Woolly",
+    website = "https://github.com/outadoc/woolly"
 )

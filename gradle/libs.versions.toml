@@ -2,7 +2,7 @@
 ktor = "1.5.4"
 
 [libraries]
-mastodonk = "fr.outadoc.mastodonk:mastodonk-core-jvm:0.1-alpha13"
+mastodonk = "fr.outadoc.mastodonk:mastodonk-core-jvm:0.1-alpha14"
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.2.0"
 junit = "junit:junit:4.13"
 logback = "ch.qos.logback:logback-classic:1.2.1"
