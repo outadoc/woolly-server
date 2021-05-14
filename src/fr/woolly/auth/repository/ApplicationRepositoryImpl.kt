@@ -20,12 +20,12 @@ class ApplicationRepositoryImpl : ApplicationRepository {
         ).joinToString("\n")
     )
 
-    override suspend fun getApplicationForDomain(domain: String): AppCredentials {
-        return getExistingCredentialsForDomain(domain)
-            ?: createApplicationForDomain(domain)
+    override suspend fun getAppCredentialsForDomain(domain: String): AppCredentials {
+        return getExistingAppCredentialsForDomainOrNull(domain)
+            ?: createAndSaveApplicationForDomain(domain)
     }
 
-    private fun getExistingCredentialsForDomain(domain: String): AppCredentials? {
+    private fun getExistingAppCredentialsForDomainOrNull(domain: String): AppCredentials? {
         return AppCredentialsTable
             .select { AppCredentialsTable.domain eq domain }
             .map {
@@ -38,7 +38,7 @@ class ApplicationRepositoryImpl : ApplicationRepository {
             .firstOrNull()
     }
 
-    private suspend fun createApplicationForDomain(domain: String): AppCredentials {
+    private suspend fun createAndSaveApplicationForDomain(domain: String): AppCredentials {
         val client = MastodonClient {
             this.domain = domain
         }

@@ -2,6 +2,10 @@
 
 package fr.woolly.auth
 
+import fr.outadoc.mastodonk.api.entity.GrantType
+import fr.outadoc.mastodonk.api.entity.request.TokenGet
+import fr.outadoc.mastodonk.client.MastodonApiException
+import fr.outadoc.mastodonk.client.MastodonClient
 import fr.woolly.auth.fr.woolly.auth.repository.ApplicationRepositoryImpl
 import io.ktor.application.*
 import io.ktor.features.*
@@ -40,7 +44,7 @@ fun Application.module() {
 
     routing {
         get<AuthorizeRoute> { req ->
-            val app = repository.getApplicationForDomain(req.domain.trim())
+            val app = repository.getAppCredentialsForDomain(req.domain.trim())
             val url = URLBuilder(
                 protocol = URLProtocol.HTTPS,
                 host = req.domain,
@@ -57,10 +61,33 @@ fun Application.module() {
         }
 
         post<TokenRoute> { req ->
-            val app = repository.getApplicationForDomain(req.domain.trim())
+            val app = repository.getAppCredentialsForDomain(req.domain.trim())
 
-            // TODO proxy the request to the instance with our added client_id/client_secret and return its response
-            call.respondText("Token")
+            val client = MastodonClient {
+                domain = req.domain
+            }
+
+            try {
+                val token = client.oauth.getToken(
+                    TokenGet(
+                        clientId = app.clientId,
+                        clientSecret = app.clientSecret,
+                        redirectUri = req.redirect_uri,
+                        grantType = GrantType.AuthorizationCode,
+                        scope = req.scope,
+                        code = req.code
+                    )
+                )
+
+                call.respond(HttpStatusCode.OK, token)
+
+            } catch (e: MastodonApiException) {
+                val status = HttpStatusCode.fromValue(e.errorCode)
+                when (val errorBody = e.apiError) {
+                    null -> call.respond(status)
+                    else -> call.respond(status, errorBody)
+                }
+            }
         }
     }
 }
