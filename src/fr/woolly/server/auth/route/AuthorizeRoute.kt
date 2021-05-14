@@ -1,8 +1,8 @@
 @file:OptIn(KtorExperimentalLocationsAPI::class)
 
-package fr.woolly.auth.fr.woolly.auth.route
+package fr.woolly.server.auth.route
 
-import fr.woolly.auth.fr.woolly.auth.repository.ApplicationRepository
+import fr.woolly.server.auth.repository.ApplicationRepository
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.locations.*

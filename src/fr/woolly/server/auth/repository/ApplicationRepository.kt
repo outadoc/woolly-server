@@ -1,6 +1,6 @@
-package fr.woolly.auth.fr.woolly.auth.repository
+package fr.woolly.server.auth.repository
 
-import fr.woolly.auth.fr.woolly.auth.entity.AppCredentials
+import fr.woolly.server.auth.entity.AppCredentials
 
 interface ApplicationRepository {
     suspend fun getAppCredentialsForDomain(domain: String): AppCredentials

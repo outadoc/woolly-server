@@ -1,24 +1,23 @@
-package fr.woolly.auth.fr.woolly.auth.repository
+package fr.woolly.server.auth.repository
 
 import fr.outadoc.mastodonk.api.entity.request.ApplicationCreate
 import fr.outadoc.mastodonk.client.MastodonClient
-import fr.woolly.auth.fr.woolly.auth.entity.AppCredentials
-import fr.woolly.auth.fr.woolly.auth.entity.AppCredentialsTable
+import fr.woolly.server.auth.entity.AppCredentials
+import fr.woolly.server.auth.entity.AppCredentialsTable
+import fr.woolly.server.config.model.ApplicationConfig
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 
-class ApplicationRepositoryImpl : ApplicationRepository {
+class ApplicationRepositoryImpl(applicationConfig: ApplicationConfig) : ApplicationRepository {
 
-    private val defaultApp = ApplicationCreate(
-        clientName = "Woolly",
-        website = "https://woolly.app",
-        scopes = "read write follow push",
-        redirectUris = listOf(
-            "urn:ietf:wg:oauth:2.0:oob",
-            "woolly://oauth/callback",
-            "https://woolly.app/oauth/callback"
-        ).joinToString("\n")
-    )
+    private val defaultApp = with(applicationConfig) {
+        ApplicationCreate(
+            clientName = clientName,
+            website = website,
+            redirectUris = redirectUris.joinToString("\n"),
+            scopes = scopes.joinToString(" ")
+        )
+    }
 
     override suspend fun getAppCredentialsForDomain(domain: String): AppCredentials {
         return getExistingAppCredentialsForDomainOrNull(domain)
