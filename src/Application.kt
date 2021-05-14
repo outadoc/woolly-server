@@ -23,7 +23,7 @@ fun Application.module() {
     }
 
     val env = System.getenv()
-    val configPath = env["CONFIG_PATH"] ?: "/etc/woolly/server_config.json"
+    val configPath = env["WOOLLY_CONFIG_PATH"] ?: "/etc/woolly/server_config.json"
     val configRepo = ServerConfigRepositoryImpl(File(configPath))
     val config = configRepo.getServerConfig()
 
