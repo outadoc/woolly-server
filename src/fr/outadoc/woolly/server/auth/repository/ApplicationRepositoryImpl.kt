@@ -13,7 +13,9 @@ import org.jetbrains.exposed.sql.transactions.transaction
 class ApplicationRepositoryImpl(applicationConfig: ApplicationConfig) : ApplicationRepository {
 
     init {
-        SchemaUtils.create(AppCredentialsTable)
+        transaction {
+            SchemaUtils.create(AppCredentialsTable)
+        }
     }
 
     private val defaultApp = with(applicationConfig) {
