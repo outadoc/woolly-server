@@ -1,13 +1,13 @@
 @file:OptIn(KtorExperimentalLocationsAPI::class)
 
-package fr.woolly.server.auth.route
+package fr.outadoc.woolly.server.auth.route
 
 import fr.outadoc.mastodonk.api.entity.GrantType
 import fr.outadoc.mastodonk.api.entity.request.TokenGet
 import fr.outadoc.mastodonk.client.MastodonApiException
 import fr.outadoc.mastodonk.client.MastodonClient
-import fr.woolly.server.auth.repository.ApplicationRepository
-import fr.woolly.server.auth.respondApiError
+import fr.outadoc.woolly.server.auth.repository.ApplicationRepository
+import fr.outadoc.woolly.server.auth.respondApiError
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.locations.*

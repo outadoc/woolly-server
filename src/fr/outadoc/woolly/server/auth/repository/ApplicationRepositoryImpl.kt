@@ -1,10 +1,10 @@
-package fr.woolly.server.auth.repository
+package fr.outadoc.woolly.server.auth.repository
 
 import fr.outadoc.mastodonk.api.entity.request.ApplicationCreate
 import fr.outadoc.mastodonk.client.MastodonClient
-import fr.woolly.server.auth.entity.AppCredentials
-import fr.woolly.server.auth.entity.AppCredentialsTable
-import fr.woolly.server.config.model.ApplicationConfig
+import fr.outadoc.woolly.server.auth.entity.AppCredentials
+import fr.outadoc.woolly.server.auth.entity.AppCredentialsTable
+import fr.outadoc.woolly.server.config.model.ApplicationConfig
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 

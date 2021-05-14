@@ -1,10 +1,10 @@
-package fr.woolly.auth
+package fr.outadoc.woolly.server
 
-import fr.woolly.server.auth.repository.ApplicationRepositoryImpl
-import fr.woolly.server.auth.route.authorizeRoute
-import fr.woolly.server.auth.route.revokeRoute
-import fr.woolly.server.auth.route.tokenRoute
-import fr.woolly.server.config.repository.ServerConfigRepositoryImpl
+import fr.outadoc.woolly.server.auth.repository.ApplicationRepositoryImpl
+import fr.outadoc.woolly.server.auth.route.authorizeRoute
+import fr.outadoc.woolly.server.auth.route.revokeRoute
+import fr.outadoc.woolly.server.auth.route.tokenRoute
+import fr.outadoc.woolly.server.config.repository.ServerConfigRepositoryImpl
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.locations.*

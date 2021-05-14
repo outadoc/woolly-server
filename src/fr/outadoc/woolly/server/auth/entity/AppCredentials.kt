@@ -1,4 +1,4 @@
-package fr.woolly.server.auth.entity
+package fr.outadoc.woolly.server.auth.entity
 
 data class AppCredentials(
     val domain: String,

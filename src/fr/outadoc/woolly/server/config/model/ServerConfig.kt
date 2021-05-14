@@ -1,4 +1,4 @@
-package fr.woolly.server.config.model
+package fr.outadoc.woolly.server.config.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

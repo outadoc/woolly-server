@@ -1,4 +1,4 @@
-package fr.woolly.server.auth
+package fr.outadoc.woolly.server.auth
 
 import fr.outadoc.mastodonk.client.MastodonApiException
 import io.ktor.application.*

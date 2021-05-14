@@ -1,6 +1,6 @@
-package fr.woolly.server.config.repository
+package fr.outadoc.woolly.server.config.repository
 
-import fr.woolly.server.config.model.ServerConfig
+import fr.outadoc.woolly.server.config.model.ServerConfig
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File

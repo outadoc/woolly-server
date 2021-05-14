@@ -1,3 +1,3 @@
-rootProject.name = "auth-proxy"
+rootProject.name = "woolly-server"
 
 enableFeaturePreview("VERSION_CATALOGS")

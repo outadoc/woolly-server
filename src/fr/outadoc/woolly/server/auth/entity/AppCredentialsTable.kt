@@ -1,4 +1,4 @@
-package fr.woolly.server.auth.entity
+package fr.outadoc.woolly.server.auth.entity
 
 import org.jetbrains.exposed.sql.Table
 
