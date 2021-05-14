@@ -7,6 +7,7 @@ import fr.outadoc.woolly.server.auth.entity.AppCredentialsTable
 import fr.outadoc.woolly.server.config.model.ApplicationConfig
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class ApplicationRepositoryImpl(applicationConfig: ApplicationConfig) : ApplicationRepository {
 
@@ -25,16 +26,18 @@ class ApplicationRepositoryImpl(applicationConfig: ApplicationConfig) : Applicat
     }
 
     private fun getExistingAppCredentialsForDomainOrNull(domain: String): AppCredentials? {
-        return AppCredentialsTable
-            .select { AppCredentialsTable.domain eq domain }
-            .map {
-                AppCredentials(
-                    domain = it[AppCredentialsTable.domain],
-                    clientId = it[AppCredentialsTable.clientId],
-                    clientSecret = it[AppCredentialsTable.clientSecret]
-                )
-            }
-            .firstOrNull()
+        return transaction {
+            AppCredentialsTable
+                .select { AppCredentialsTable.domain eq domain }
+                .map {
+                    AppCredentials(
+                        domain = it[AppCredentialsTable.domain],
+                        clientId = it[AppCredentialsTable.clientId],
+                        clientSecret = it[AppCredentialsTable.clientSecret]
+                    )
+                }
+                .firstOrNull()
+        }
     }
 
     private suspend fun createAndSaveApplicationForDomain(domain: String): AppCredentials {
