@@ -13,7 +13,6 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://kotlin.bintray.com/ktor") }
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
     maven { url = uri("https://nexus.outadoc.fr/repository/public") }
 }
 
