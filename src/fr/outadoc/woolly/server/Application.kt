@@ -30,14 +30,14 @@ fun Application.module() {
     val configRepo = ServerConfigRepositoryImpl(File(configPath))
     val config = configRepo.getServerConfig()
 
-    val appRepository = ApplicationRepositoryImpl(config.applicationConfig)
-
     Database.connect(
         driver = "com.mysql.jdbc.Driver",
         url = config.mySqlConfig.connectionString,
         user = config.mySqlConfig.username,
         password = config.mySqlConfig.password
     )
+
+    val appRepository = ApplicationRepositoryImpl(config.applicationConfig)
 
     routing {
         statusRoute()

@@ -5,11 +5,16 @@ import fr.outadoc.mastodonk.client.MastodonClient
 import fr.outadoc.woolly.server.auth.entity.AppCredentials
 import fr.outadoc.woolly.server.auth.entity.AppCredentialsTable
 import fr.outadoc.woolly.server.config.model.ApplicationConfig
+import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class ApplicationRepositoryImpl(applicationConfig: ApplicationConfig) : ApplicationRepository {
+
+    init {
+        SchemaUtils.create(AppCredentialsTable)
+    }
 
     private val defaultApp = with(applicationConfig) {
         ApplicationCreate(
