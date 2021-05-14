@@ -3,6 +3,7 @@ package fr.outadoc.woolly.server
 import fr.outadoc.woolly.server.auth.repository.ApplicationRepositoryImpl
 import fr.outadoc.woolly.server.auth.route.authorizeRoute
 import fr.outadoc.woolly.server.auth.route.revokeRoute
+import fr.outadoc.woolly.server.auth.route.statusRoute
 import fr.outadoc.woolly.server.auth.route.tokenRoute
 import fr.outadoc.woolly.server.config.repository.ServerConfigRepositoryImpl
 import io.ktor.application.*
@@ -37,6 +38,7 @@ fun Application.module() {
     )
 
     routing {
+        statusRoute()
         authorizeRoute(appRepository)
         tokenRoute(appRepository)
         revokeRoute(appRepository)
