@@ -18,7 +18,9 @@ fun main(args: Array<String>): Unit = io.ktor.server.cio.EngineMain.main(args)
 
 @Suppress("unused")
 fun Application.module() {
+
     install(Locations)
+    install(CallLogging)
     install(ContentNegotiation) {
         json()
     }

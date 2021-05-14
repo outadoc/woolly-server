@@ -9,7 +9,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 
 @Location("/status")
-class StatusRoute()
+class StatusRoute
 
 fun Route.statusRoute() {
     get<StatusRoute> {
