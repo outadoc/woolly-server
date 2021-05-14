@@ -26,8 +26,8 @@ dependencies {
     implementation(libs.logback)
 
     implementation(libs.exposed.core)
-    implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
+    implementation(libs.mysql.connector)
 
     testImplementation(libs.ktor.tests)
 }
