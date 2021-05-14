@@ -13,7 +13,7 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-@Location("/oauth/revoke")
+@Location("/oauth/{domain}/revoke")
 class RevokeRoute(
     val domain: String,
     val token: String
@@ -24,7 +24,7 @@ fun Route.revokeRoute(appRepository: ApplicationRepository) {
         val app = appRepository.getAppCredentialsForDomain(req.domain.trim())
 
         val client = MastodonClient {
-            domain = req.domain
+            domain = req.domain.trim()
         }
 
         try {

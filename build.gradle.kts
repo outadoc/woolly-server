@@ -23,6 +23,7 @@ dependencies {
     implementation(libs.ktor.cio)
     implementation(libs.ktor.core)
     implementation(libs.ktor.locations)
+    implementation(libs.ktor.serialization.kotlinx)
     implementation(libs.logback)
 
     implementation(libs.exposed.core)

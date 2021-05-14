@@ -9,7 +9,7 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-@Location("/oauth/authorize")
+@Location("/oauth/{domain}/authorize")
 class AuthorizeRoute(
     val domain: String,
     val scope: String? = null,
@@ -22,7 +22,7 @@ fun Route.authorizeRoute(appRepository: ApplicationRepository) {
 
         val url = URLBuilder(
             protocol = URLProtocol.HTTPS,
-            host = req.domain,
+            host = req.domain.trim(),
             encodedPath = "oauth/authorize",
             parameters = ParametersBuilder().apply {
                 append("client_id", app.clientId)

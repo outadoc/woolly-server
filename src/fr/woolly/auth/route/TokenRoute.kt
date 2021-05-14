@@ -14,8 +14,7 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-
-@Location("/oauth/token")
+@Location("/oauth/{domain}/token")
 class TokenRoute(
     val domain: String,
     val code: String,
@@ -28,7 +27,7 @@ fun Route.tokenRoute(appRepository: ApplicationRepository) {
         val app = appRepository.getAppCredentialsForDomain(req.domain.trim())
 
         val client = MastodonClient {
-            domain = req.domain
+            domain = req.domain.trim()
         }
 
         try {
