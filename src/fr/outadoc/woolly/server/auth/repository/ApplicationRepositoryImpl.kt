@@ -60,10 +60,12 @@ class ApplicationRepositoryImpl(applicationConfig: ApplicationConfig) : Applicat
             )
         }
 
-        AppCredentialsTable.insert {
-            it[this.domain] = app.domain
-            it[this.clientId] = app.clientId
-            it[this.clientSecret] = app.clientSecret
+        transaction {
+            AppCredentialsTable.insert {
+                it[this.domain] = app.domain
+                it[this.clientId] = app.clientId
+                it[this.clientSecret] = app.clientSecret
+            }
         }
 
         return app
