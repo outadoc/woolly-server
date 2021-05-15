@@ -20,17 +20,17 @@ class TokenRoute(
     val domain: String
 )
 
-data class TokenParameters(
-    val code: String,
-    val scope: String? = null,
-    val redirect_uri: String = "urn:ietf:wg:oauth:2.0:oob"
-)
-
 fun Route.tokenRoute(appRepository: ApplicationRepository) {
     post<TokenRoute> { req ->
-        val params = call.receive<TokenParameters>()
-        val app = appRepository.getAppCredentialsForDomain(req.domain.trim())
+        val params = call.receiveParameters()
 
+        val code = params["code"]
+        if (code == null) {
+            call.respond(HttpStatusCode.BadRequest, "Code is required")
+            return@post
+        }
+
+        val app = appRepository.getAppCredentialsForDomain(req.domain.trim())
         val client = MastodonClient {
             domain = req.domain.trim()
         }
@@ -41,9 +41,9 @@ fun Route.tokenRoute(appRepository: ApplicationRepository) {
                     clientId = app.clientId,
                     clientSecret = app.clientSecret,
                     grantType = GrantType.AuthorizationCode,
-                    redirectUri = params.redirect_uri,
-                    scope = params.scope,
-                    code = params.code
+                    redirectUri = params["redirect_uri"] ?: "urn:ietf:wg:oauth:2.0:oob",
+                    scope = params["scope"],
+                    code = code
                 )
             )
 
