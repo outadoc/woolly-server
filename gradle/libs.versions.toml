@@ -5,7 +5,7 @@ ktor = "1.5.4"
 [libraries]
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
-mastodonk = "fr.outadoc.mastodonk:mastodonk-core-jvm:0.1-alpha14"
+mastodonk = "fr.outadoc.mastodonk:mastodonk-core-jvm:0.1-alpha15"
 mysql-connector = "mysql:mysql-connector-java:5.1.48"
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.2.0"
 junit = "junit:junit:4.13"
