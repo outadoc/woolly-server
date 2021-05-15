@@ -11,12 +11,16 @@ import fr.outadoc.woolly.server.auth.respondApiError
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.locations.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
 @Location("/oauth/{domain}/token")
 class TokenRoute(
-    val domain: String,
+    val domain: String
+)
+
+data class TokenParameters(
     val code: String,
     val scope: String? = null,
     val redirect_uri: String = "urn:ietf:wg:oauth:2.0:oob"
@@ -24,6 +28,7 @@ class TokenRoute(
 
 fun Route.tokenRoute(appRepository: ApplicationRepository) {
     post<TokenRoute> { req ->
+        val params = call.receive<TokenParameters>()
         val app = appRepository.getAppCredentialsForDomain(req.domain.trim())
 
         val client = MastodonClient {
@@ -35,10 +40,10 @@ fun Route.tokenRoute(appRepository: ApplicationRepository) {
                 TokenGet(
                     clientId = app.clientId,
                     clientSecret = app.clientSecret,
-                    redirectUri = req.redirect_uri,
                     grantType = GrantType.AuthorizationCode,
-                    scope = req.scope,
-                    code = req.code
+                    redirectUri = params.redirect_uri,
+                    scope = params.scope,
+                    code = params.code
                 )
             )
 
